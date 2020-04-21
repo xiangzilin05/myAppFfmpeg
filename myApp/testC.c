@@ -27,5 +27,15 @@ void haha(){
         printf(stderr, "Failed to open audio device, [%d] %s\n", ret, errors);
         return;
     }
+    
+    AVPacket pkt;
+    av_init_packet(&pkt);
+    int count = 0;
+    while ((ret =av_read_frame(fmt_ctx, &pkt)
+            && count++ < 500) == 0) {
+        printf("pkt size is %d\n", pkt.size);
+    }
+    av_packet_unref(&pkt);
+    
     return;
 }
